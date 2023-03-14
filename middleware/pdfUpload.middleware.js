@@ -13,13 +13,13 @@ const storage = multer.diskStorage({
 const fileFilter = (req,file,cb) => {
     const validExts = [".pdf",".docs"];
     
-    if(!validExts.includes(path.extname(file.originalname)) && filetypes.includes(file.mimetype)){
-        return cb (new Error("Only .pdf .docs file format allowed"));
+    if(!validExts.includes(path.extname(file.originalname))){
+        cb(null,false);
     }
 
     const fileSize = parseInt(req.headers["content-length"]);
     if(fileSize > (5 * 1048576)){
-        return cb ( new Error("maximum file size allowed 5MB"));
+        cb(null,false);
     }
     cb(null,true);
 }
