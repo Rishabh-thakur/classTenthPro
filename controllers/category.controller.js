@@ -2,13 +2,17 @@ const Category = require("../models/parentCategory.model");
 const fs = require("fs");
 
 exports.getCategoryById = async (req, res, next, id) => {
-  const user = await Category.findById(id);
-  if (!user) {
-    res.status(401).json({ success: false, error: "No category find" });
+  try {
+    const user = await Category.findOne({_id : id});
+ if(!user){
+  return res.status(401).json({success : false,error : "No category find"});
+ }else{
+    req.user = user;
+    next();
   }
-  req.category = user;
-  next();
-};
+  } catch (error) {
+    console.log(error);
+  }
 
 exports.createCategory = async (req, res) => {
   try {
