@@ -20,3 +20,4 @@ module.exports = function (app) {
   app.put("/api/updateCategory/:categoryId/:userId",isAdmin,upload, controller.updateCategory);
   app.delete("/api/deleteCategory/:categoryId/:userId",isAdmin, controller.deleteCategory);
 };
+
