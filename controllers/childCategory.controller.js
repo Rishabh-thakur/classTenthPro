@@ -3,12 +3,17 @@ const fs = require("fs");
 
 
 exports.getChildCategoryById = async (req, res, next, id) => {
-  const user = await ChildCategory.findById(id);
-  if (!user) {
-    res.status(401).json({ success: false, error: "No child category find" });
+  try {
+    const user = await ChildCategory.findOne({_id : id});
+ if(!user){
+  return res.status(401).json({success : false,error : "No child category find"});
+ }else{
+    req.user = user;
+    next();
   }
-  req.childCategory = user;
-  next();
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 exports.createChildCategory = async (req, res) => {
