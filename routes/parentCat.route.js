@@ -2,7 +2,6 @@ const controller = require("../controllers/category.controller");
 const upload = require("../middleware/logoUpload.middlware");
 const { isAdmin } = require("../middleware/auth.middleware");
 const userController = require("../controllers/user.controller");
-
 module.exports = function (app) {
   app.use(function (req, res, next) {
     res.header(
