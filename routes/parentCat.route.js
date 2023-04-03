@@ -1,5 +1,5 @@
-const controller = require("../controllers/category.controller");
 const upload = require("../middleware/logoUpload.middlware");
+const controller = require("../controllers/category.controller");
 const { isAdmin } = require("../middleware/auth.middleware");
 const userController = require("../controllers/user.controller");
 module.exports = function (app) {
