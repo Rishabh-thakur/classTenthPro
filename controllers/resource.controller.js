@@ -2,12 +2,17 @@ const Resource = require("../models/resource.model");
 const fs = require("fs");
 
 exports.getResourceById = async (req, res, next, id) => {
-  const user = await Resource.findById(id);
-  if (!user) {
-    res.status(401).json({ success: false, error: "No resource find" });
+  try {
+    const user = await Resource.findOne({_id : id});
+ if(!user){
+  return res.status(401).json({success : false,error : "No resource find"});
+ }else{
+    req.user = user;
+    next();
   }
-  req.resource = user;
-  next();
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 exports.createResource = async (req, res) => {
