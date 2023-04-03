@@ -3,12 +3,14 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 exports.getUserById = async (req, res, next, id) => {
- const user = await User.findById(id);
+ const user = await User.findOne({_id : id});
+ console.log(user);
  if(!user){
-  res.status(401).json({success : false,error : "No user find"});
- }
+  return res.status(401).json({success : false,error : "No user find"});
+ }else{
     req.user = user;
     next();
+  }
 };
 
 exports.signup = async (req, res) => {
